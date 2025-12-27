@@ -54,7 +54,8 @@ func InitRedisClient() (err error) {
 
 	}
 
-	// 添加这几行
+	// 添加超时配置
+
 	opt.DialTimeout = 30 * time.Second
 
 	opt.ReadTimeout = 30 * time.Second
@@ -65,7 +66,9 @@ func InitRedisClient() (err error) {
 
 	RDB = redis.NewClient(opt)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	// 这里也改成 30 秒
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 
 	defer cancel()
 
